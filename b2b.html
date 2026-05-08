@@ -66,6 +66,11 @@ button{
     font-size:16px;
     font-weight:bold;
     cursor:pointer;
+    transition:0.2s;
+}
+
+button:hover{
+    opacity:0.9;
 }
 </style>
 </head>
@@ -103,6 +108,7 @@ button{
 </div>
 
 <script>
+
 window.onload = function(){
     document.getElementById("nome").value = "";
     document.getElementById("empresa").value = "";
@@ -126,7 +132,7 @@ function abrirGPT(){
     const pergunta = 
 `Meu nome é ${nome}.
 
-Sou gerente comercial da Vivo e atuo com vendas B2B.
+Sou gerente de negócios da Vivo e atuo com vendas B2B.
 
 Tenho uma visita comercial com a empresa ${empresa}.
 
@@ -149,18 +155,14 @@ Responda como um mentor comercial experiente em vendas consultivas B2B.`;
 
     const url = 
         "https://chatgpt.com/?q=" + 
-        encodeURIComponent(pergunta) + 
-        "&v=" + new Date().getTime();
+        encodeURIComponent(pergunta);
 
-    window.open(url, "_blank_" + new Date().getTime());
+    window.open(url, "_blank");
 
     document.getElementById("nome").value = "";
     document.getElementById("empresa").value = "";
-
-    setTimeout(function(){
-        window.location.href = window.location.pathname + "?reload=" + new Date().getTime();
-    }, 500);
 }
+
 </script>
 
 </body>
