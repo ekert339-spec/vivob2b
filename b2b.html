@@ -3,11 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Radar FSP</title>
+
+<title>Visita 360 FSP</title>
+
 <style>
+
 body{
     margin:0;
-    background:#f5f6fa;
+    background:linear-gradient(135deg,#f5f6fa,#ece8f5);
     font-family:Arial, sans-serif;
     display:flex;
     justify-content:center;
@@ -16,6 +19,7 @@ body{
     padding:20px;
     box-sizing:border-box;
 }
+
 .box{
     background:#fff;
     padding:30px;
@@ -23,24 +27,41 @@ body{
     width:100%;
     max-width:500px;
     box-shadow:0 10px 30px rgba(0,0,0,0.1);
+    border-top:6px solid #660099;
+    animation:fade .4s ease;
 }
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
 h1{
     margin-top:0;
     color:#660099;
     font-size:28px;
     text-align:center;
 }
+
 p{
     color:#555;
     font-size:14px;
     line-height:1.5;
     text-align:center;
 }
+
 .tabs{
     display:flex;
     gap:10px;
     margin:25px 0;
 }
+
 .tab{
     flex:1;
     padding:12px;
@@ -50,23 +71,29 @@ p{
     color:#333;
     font-weight:bold;
     cursor:pointer;
+    transition:0.2s;
 }
+
 .tab.active{
     background:#660099;
     color:#fff;
 }
+
 .formulario{
     display:none;
 }
+
 .formulario.active{
     display:block;
 }
+
 label{
     font-weight:bold;
     color:#333;
     display:block;
     margin-bottom:8px;
 }
+
 input, select{
     width:100%;
     padding:15px;
@@ -76,6 +103,13 @@ input, select{
     margin-bottom:18px;
     font-size:16px;
 }
+
+input:focus, select:focus{
+    outline:none;
+    border:1px solid #660099;
+    box-shadow:0 0 0 3px rgba(102,0,153,0.15);
+}
+
 button.enviar{
     width:100%;
     padding:15px;
@@ -86,7 +120,13 @@ button.enviar{
     font-size:16px;
     font-weight:bold;
     cursor:pointer;
+    transition:0.2s;
 }
+
+button.enviar:hover{
+    opacity:0.95;
+}
+
 .obs{
     margin-top:15px;
     font-size:12px;
@@ -94,180 +134,318 @@ button.enviar{
     line-height:1.5;
     text-align:center;
 }
+
 @media (max-width:600px){
+
     body{
         align-items:flex-start;
         padding:16px;
         min-height:100vh;
     }
+
     .box{
         margin-top:10px;
         padding:24px;
         border-radius:18px;
     }
+
     h1{
         font-size:26px;
     }
+
     .tabs{
         flex-direction:column;
     }
+
 }
+
 </style>
 </head>
+
 <body>
+
 <div class="box">
-    <h1>Radar FSP</h1>
+
+    <h1>Visita 360 FSP</h1>
+
     <p>
-        Escolha uma opção para abrir o ChatGPT com um prompt pronto para análise comercial consultiva.
+        Escolha uma opção para abrir a IA com um prompt pronto para análise comercial consultiva.
     </p>
+
+    <label>Escolha a IA</label>
+
+    <select id="iaSelecionada">
+        <option value="chatgpt">ChatGPT</option>
+        <option value="copilot">Copilot</option>
+        <option value="gemini">Gemini</option>
+        <option value="perplexity">Perplexity</option>
+    </select>
+
     <div class="tabs">
+
         <button class="tab active" onclick="trocarAba('carteira')">
             Cliente da Carteira
         </button>
+
         <button class="tab" onclick="trocarAba('prospeccao')">
             Prospecção
         </button>
+
     </div>
+
     <div id="carteira" class="formulario active">
+
         <label>Seu nome</label>
-        <input type="text" id="nomeCarteira" placeholder="Digite seu nome" autocomplete="off">
+
+        <input 
+            type="text" 
+            id="nomeCarteira" 
+            placeholder="Digite seu nome" 
+            autocomplete="off"
+        >
+
         <label>Nome da empresa</label>
-        <input type="text" id="empresaCarteira" placeholder="Digite o nome da empresa cliente" autocomplete="off">
-        <button class="enviar" onclick="abrirClienteCarteira()">
+
+        <input 
+            type="text" 
+            id="empresaCarteira" 
+            placeholder="Digite o nome da empresa cliente" 
+            autocomplete="off"
+        >
+
+        <button 
+            class="enviar" 
+            onclick="abrirClienteCarteira()"
+        >
             Preparar visita ao cliente
         </button>
+
     </div>
+
     <div id="prospeccao" class="formulario">
+
         <label>Seu nome</label>
-        <input type="text" id="nomeProspec" placeholder="Digite seu nome" autocomplete="off">
+
+        <input 
+            type="text" 
+            id="nomeProspec" 
+            placeholder="Digite seu nome" 
+            autocomplete="off"
+        >
+
         <label>CEP base</label>
-        <input type="text" id="cepProspec" placeholder="Exemplo: 04571936" autocomplete="off">
+
+        <input 
+            type="text" 
+            id="cepProspec" 
+            placeholder="Exemplo: 04571-936" 
+            autocomplete="off"
+        >
+
         <label>Raio de busca</label>
+
         <select id="raioProspec">
             <option value="5 km">5 quilômetros</option>
             <option value="10 km">10 quilômetros</option>
             <option value="15 km">15 quilômetros</option>
             <option value="20 km">20 quilômetros</option>
         </select>
-        <button class="enviar" onclick="abrirProspecao()">
+
+        <button 
+            class="enviar" 
+            onclick="abrirProspecao()"
+        >
             Pesquisar empresas da região
         </button>
+
     </div>
+
     <div class="obs">
-        O ChatGPT abrirá com a pergunta preenchida. Pode ser necessário clicar em enviar dentro do ChatGPT.
+        A IA será aberta com o prompt preenchido automaticamente.
     </div>
+
 </div>
+
 <script>
+
 function trocarAba(aba){
+
     document.querySelectorAll('.tab').forEach(btn => {
         btn.classList.remove('active');
     });
+
     document.querySelectorAll('.formulario').forEach(form => {
         form.classList.remove('active');
     });
+
     document.getElementById(aba).classList.add('active');
+
     if(aba === 'carteira'){
         document.querySelectorAll('.tab')[0].classList.add('active');
     } else {
         document.querySelectorAll('.tab')[1].classList.add('active');
     }
+
 }
+
+const cepInput = document.getElementById("cepProspec");
+
+cepInput.addEventListener("input", function(e){
+
+    let value = e.target.value.replace(/\D/g, "");
+
+    value = value.replace(/^(\d{5})(\d)/, "$1-$2");
+
+    e.target.value = value;
+
+});
+
 function abrirClienteCarteira(){
+
     const nome = document.getElementById("nomeCarteira").value.trim();
+
     const empresa = document.getElementById("empresaCarteira").value.trim();
+
     if(nome === ""){
         alert("Digite seu nome");
         return;
     }
+
     if(empresa === ""){
         alert("Digite o nome da empresa");
         return;
     }
+
     const pergunta = 
 `Meu nome é ${nome}.
 Sou Gerente de Negócios da Vivo Empresas e atuo com vendas B2B.
+
 Tenho uma visita comercial com a empresa ${empresa}.
+
 Quero que você me ajude a me preparar para essa reunião.
+
 Traga uma análise prática com:
+
 1. O que essa empresa faz
 2. Segmento de atuação
-3. Área principal da empresa, como varejo, saúde, logística, indústria, finanças, tecnologia, educação, alimentação ou outro
-4. Capital social da empresa, se houver informação pública disponível
-5. Possíveis necessidades de telecom, conectividade, internet, telefonia móvel, dados, segurança digital, cloud, IoT, redes, PABX em nuvem ou soluções digitais
-6. Possíveis dores do cliente
-7. Como eu devo conduzir a conversa comercial
-8. Argumentos de valor para uma venda consultiva B2B
-9. Cuidados para não parecer apenas um vendedor de produto
-10. Sugestão de roteiro para a reunião
-11. Possíveis oportunidades para Vivo Empresas
-12. Perguntas inteligentes que eu devo fazer na visita
-13. Como finalizar a visita com próximos passos claros
-14. Site, LinkedIn ou presença digital da empresa, se existir
+3. Área principal da empresa
+4. Possíveis necessidades de telecom e tecnologia
+5. Possíveis dores do cliente
+6. Como conduzir a conversa comercial
+7. Argumentos de valor para venda consultiva
+8. Oportunidades para Vivo Empresas
+9. Perguntas inteligentes para a visita
+10. Como finalizar a reunião com próximos passos
+
 Importante:
 Use apenas informações públicas disponíveis na internet.
 Não invente dados.
 Quando alguma informação for estimada, deixe claro que é uma estimativa.
+
 Responda como um mentor comercial experiente em vendas consultivas B2B.`;
-    abrirChatGPT(pergunta);
+
+    abrirIA(pergunta);
+
 }
+
 function abrirProspecao(){
+
     const nome = document.getElementById("nomeProspec").value.trim();
+
     const cep = document.getElementById("cepProspec").value.trim();
+
     const raio = document.getElementById("raioProspec").value;
+
     if(nome === ""){
         alert("Digite seu nome");
         return;
     }
+
     if(cep === ""){
         alert("Digite o CEP base");
         return;
     }
+
     const pergunta = 
 `Meu nome é ${nome}.
+
 Sou Gerente de Negócios da Vivo Empresas e atuo com vendas B2B.
+
 Quero fazer uma prospecção consultiva por região.
+
 CEP base: ${cep}
 Raio de busca: ${raio}
+
 Pesquise empresas próximas desse CEP com potencial para soluções Vivo Empresas.
-Priorize empresas com:
-- estrutura comercial
-- operação ativa
-- potencial corporativo
-- possível faturamento acima de R$ 20 mil por mês
-- necessidade de conectividade e tecnologia
-Monte uma lista detalhada contendo:
+
+Monte uma lista contendo:
+
 1. Nome da empresa
 2. Segmento de atuação
-3. Área principal da empresa, como varejo, saúde, logística, indústria, finanças, tecnologia, educação, alimentação ou outro
-4. Capital social da empresa
-5. Porte estimado
-6. Endereço aproximado ou bairro
-7. Possíveis necessidades de telecom e tecnologia
-8. Possíveis dores da operação
-9. Oportunidades para Vivo Empresas
-10. Melhor abordagem comercial
-11. Perguntas inteligentes para a visita
-12. Sugestão de primeiro contato comercial
-13. Sinais públicos de crescimento da empresa
-14. Site, LinkedIn ou presença digital da empresa, se existir
+3. Porte estimado
+4. Possíveis necessidades de telecom e tecnologia
+5. Possíveis dores da operação
+6. Oportunidades para Vivo Empresas
+7. Melhor abordagem comercial
+8. Perguntas inteligentes para a visita
+9. Presença digital da empresa
+
 Importante:
 Use apenas informações públicas disponíveis na internet.
-Quando o faturamento não estiver disponível, faça estimativa baseada em porte, estrutura, número de funcionários, capital social, presença digital, operação, avaliações, filiais, site, LinkedIn ou notícias.
 Não invente dados.
 Quando alguma informação for estimada, deixe claro que é uma estimativa.
+
 Se possível, apresente em formato de tabela.`;
-    abrirChatGPT(pergunta);
+
+    abrirIA(pergunta);
+
 }
-function abrirChatGPT(pergunta){
-    const url = 
-        "https://chatgpt.com/?q=" + 
-        encodeURIComponent(pergunta) + 
-        "&v=" + new Date().getTime();
-    window.open(url, "_blank_" + new Date().getTime());
-    setTimeout(function(){
-        window.location.href = window.location.pathname + "?reload=" + new Date().getTime();
-    }, 500);
+
+function abrirIA(pergunta){
+
+    const ia = document.getElementById("iaSelecionada").value;
+
+    let url = "";
+
+    if(ia === "chatgpt"){
+
+        url =
+        "https://chatgpt.com/?q=" +
+        encodeURIComponent(pergunta);
+
+    }
+
+    if(ia === "copilot"){
+
+        url =
+        "https://copilot.microsoft.com/?q=" +
+        encodeURIComponent(pergunta);
+
+    }
+
+    if(ia === "gemini"){
+
+        url =
+        "https://gemini.google.com/app?q=" +
+        encodeURIComponent(pergunta);
+
+    }
+
+    if(ia === "perplexity"){
+
+        url =
+        "https://www.perplexity.ai/search?q=" +
+        encodeURIComponent(pergunta);
+
+    }
+
+    navigator.clipboard.writeText(pergunta);
+
+    window.open(url, "_blank");
+
 }
+
 </script>
+
 </body>
 </html>
